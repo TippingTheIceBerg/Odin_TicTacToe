@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+</head>
+<body>
+    <main class="playingField">
+        <h1>Tic Tac Toe</h1>
+        <section class="playerInput__selection">
+            <div>
+                <input type="text" name="player" id="player1">
+                <input type="button" value="submit" class="player1__btn">
+                <label for="player1">Player1</label>
+            </div>
+            <div>
+                <input type="text" name="player" id="player2">
+                <input type="button" value="submit" class="player2__btn">
+                <label for="player2">Player2</label>
+            </div>
+        </section>
+        <section class="playing__container" >
+            <section class="player1__container">
+                <p class="player1__playerName"></p>
+            </section>
+            <section class="ticTacToe__container">
+                <div class="ticTacToe__grid1"></div>
+                <div class="ticTacToe__grid2"></div>
+                <div class="ticTacToe__grid3"></div>
+                <div class="ticTacToe__grid4"></div>
+                <div class="ticTacToe__grid5"></div>
+                <div class="ticTacToe__grid6"></div>
+                <div class="ticTacToe__grid7"></div>
+                <div class="ticTacToe__grid8"></div>
+                <div class="ticTacToe__grid9"></div>
+            </section>
+
+            <section class="player2__container">
+                <p class="player2__playerName"></p>
+            </section>
+        </section>
+    </main>
+    <!-- <audio controls autoplay>
+        <source src="./music/A Kind Of Hope.mp3" type="audio/ogg">
+    </audio> -->
+</body>
+<link rel="stylesheet" href="./style.css">
+<script src="./script.js"></script>
+</html>
