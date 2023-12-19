@@ -57,47 +57,79 @@ html{
     cursor: pointer;
 
 }
+
+.fa-x, .fa-o{
+    font-size: 5em;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+}
 .ticTacToe__grid1{
     border-right: var(--border);
     border-bottom: var(--border);
+    position: relative
 }
 
 .ticTacToe__grid2{
     border-left:var(--border);
     border-bottom: var(--border);
     border-right: var(--border);
+    position: relative
 }
 
 .ticTacToe__grid3{
     border-left: var(--border);
     border-bottom: var(--border);
+    position: relative
 }
 
 .ticTacToe__grid4{
     border-right: var(--border);
     border-bottom: var(--border);
     border-top:var(--border);
+    position: relative
 }
 
 .ticTacToe__grid5{
     border: var(--border);
+    position: relative
 }
 
 .ticTacToe__grid6{
     border-bottom: var(--border);
     border-left: var(--border);
     border-top: var(--border);
+    position: relative
 }
 .ticTacToe__grid7{
     border-right: var(--border);  
-    border-top: var(--border);}
+    border-top: var(--border);
+position: relative}
 
 .ticTacToe__grid8{
     border-right: var(--border);   
     border-left: var(--border);    
     border-top:var(--border);
+    position: relative
 }
 .ticTacToe__grid9{
     border-left: var(--border);    
     border-top:var(--border);
+    position: relative
+}
+.column1,.column2,.column3{
+    border-top: solid green 3px;
+    border-bottom: solid green 3px;
+}
+.row1,.row2,.row3{
+    border-left: solid red 3px;
+    border-right: solid red 3px;
+}
+
+.diag1{
+    border: solid purple 5px;
+}
+.diag2{
+    outline: solid orange 2px;
 }
