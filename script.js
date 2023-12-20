@@ -1,5 +1,6 @@
 let TicTacToe = {
-    playerTurn: 0,
+    playerTurn: 1,
+    spaceTaken: [],
     init: function(){
         this.domCache();
         this.bindEvents();
@@ -23,7 +24,9 @@ let TicTacToe = {
         this.player2Btn = this.el.querySelectorAll(".player2__btn");
         this.player2 = this.el.querySelectorAll(".player2__playerName");
 
-        this.getAllSpaces = this.el.querySelectorAll('.grid')
+        this.getAllSpaces = this.el.querySelectorAll('.grid');
+
+        this.getAllSymbolSpaces = this.el.querySelectorAll("i")
 
         this.row1 = this.el.querySelectorAll(".row1");
         this.row2 = this.el.querySelectorAll(".row2");
@@ -68,7 +71,6 @@ let TicTacToe = {
             return this.player1Turn(da,this.playerTurn)
         }
         else{
-            console.log(this.playerTurn);
             return this.player2Turn(da, this.playerTurn)
         }
     },
@@ -82,22 +84,48 @@ let TicTacToe = {
         this.placePlayerSymbol(da,playerTurn)
     },
     placePlayerSymbol: function(da,playerTurn){
-        console.log(da,playerTurn);
+       
+        if(this.spaceTaken.indexOf(da) > -1) {
+           
+            return;
+        }
+        if(this.spaceTaken.indexOf(da) == -1){
+            console.log('free');
+            this.spaceTaken.push(da)
+        }
+        this.getAllSpaces.forEach(space => {
+            if(playerTurn == 2 ){
+                symbol = "fa-solid fa-x"
+                dataSymbol = "X"
+            }
+            if(playerTurn == 1){
+                symbol = "fa-solid fa-o"
+                dataSymbol = "O"
+            } 
+            if(space.getAttribute('data-attribute') == da){
+                child = space.firstElementChild,
+                child.setAttribute("class",symbol)
+                child.setAttribute("data-symbol",dataSymbol)
+            }   
+        }
+        )
+
+
     },
     checkRows: function(){
-        this.row1.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
-        this.row2.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
-        this.row3.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
+        // this.row1.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
+        // this.row2.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
+        // this.row3.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
     },
     checkColumns: function(){
-        this.column1.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
-        this.column2.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
-        this.column3.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
+        // this.column1.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
+        // this.column2.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
+        // this.column3.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
 
     },
     checkDiag: function(){
-        this.diag1.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
-        this.diag2.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
+        // this.diag1.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
+        // this.diag2.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
     }
 
 }
