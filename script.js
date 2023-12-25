@@ -1,6 +1,7 @@
 let TicTacToe = {
     playerTurn: 1,
     spaceTaken: [],
+    repeatTurn: false,
     init: function(){
         this.domCache();
         this.bindEvents();
@@ -9,6 +10,7 @@ let TicTacToe = {
         this.checkColumns();
         this.getDataAttribute();
         this.decidePlayerTurn();
+        this.checkTurn();
         this.player1Turn();
         this.player2Turn();
         this.placePlayerSymbol();
@@ -49,7 +51,7 @@ let TicTacToe = {
         })
 
         this.getAllSpaces.forEach(space=>{
-            space.addEventListener("click", () => this.getDataAttribute(space.getAttribute("data-attribute")))
+            space.addEventListener("click", () => this.getDataAttribute(space.getAttribute("data-attribute")));
         })
         
     },
@@ -74,26 +76,29 @@ let TicTacToe = {
             return this.player2Turn(da, this.playerTurn)
         }
     },
+    // O symbol is 2
     player1Turn: function(da,playerTurn){
-        this.playerTurn = 1
+        this.playerTurn = 1        
         this.placePlayerSymbol(da,playerTurn)
         
     },
-    player2Turn:function(da, playerTurn){
+    // X symbol
+    player2Turn:function(da, playerTurn){ 
         this.playerTurn = 2
         this.placePlayerSymbol(da,playerTurn)
     },
     placePlayerSymbol: function(da,playerTurn){
-       
-        if(this.spaceTaken.indexOf(da) > -1) {
-           
-            return;
-        }
+    //    players can still place incorrect symbols if they try to place it on a space already taken.
+    if(this.spaceTaken.indexOf(da) > -1) { 
+        this.repeatTurn = true;
+        return this.checkTurn();
+    }
         if(this.spaceTaken.indexOf(da) == -1){
-            console.log('free');
             this.spaceTaken.push(da)
         }
+
         this.getAllSpaces.forEach(space => {
+            
             if(playerTurn == 2 ){
                 symbol = "fa-solid fa-x"
                 dataSymbol = "X"
@@ -101,17 +106,29 @@ let TicTacToe = {
             if(playerTurn == 1){
                 symbol = "fa-solid fa-o"
                 dataSymbol = "O"
+
             } 
             if(space.getAttribute('data-attribute') == da){
+        
                 child = space.firstElementChild,
                 child.setAttribute("class",symbol)
                 child.setAttribute("data-symbol",dataSymbol)
             }   
         }
         )
-
-
     },
+
+    checkTurn: function(){
+        if(this.repeatTurn == true){
+            if(this.playerTurn == 2){
+                this.playerTurn = 1
+            }
+            else{
+                this.playerTurn = 2
+            }
+        }
+    },
+    
     checkRows: function(){
         // this.row1.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
         // this.row2.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
