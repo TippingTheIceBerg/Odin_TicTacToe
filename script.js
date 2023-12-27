@@ -15,12 +15,9 @@ let TicTacToe = {
     init: function(){
         this.domCache();
         this.bindEvents();
-        this.getDataAttribute();
         this.decidePlayerTurn();
         this.checkTurn();
-        this.player1Turn();
-        this.player2Turn();
-        this.placePlayerSymbol();
+
     },
     domCache: function(){
         this.el = document.querySelector(".playingField");
@@ -70,8 +67,16 @@ let TicTacToe = {
         this.player2.forEach(b => b.textContent = this.player2Val.value)
         this.player2Val.value = ""
     },
+
+ 
     // da = data-attribute
     getDataAttribute:function(da){
+        if(this.player1[0].textContent === "" || this.player2[0].textContent === ""){
+            return alert("Please enter players names")
+        }
+        if(this.endGame == true){
+            return;
+        }
         this.decidePlayerTurn(da)
     },
     decidePlayerTurn:function(da){
@@ -195,40 +200,43 @@ let TicTacToe = {
                 break;
         }
         if(this.row1Space.length == 3){
-            this.checkIfArrIsTheSame(this.row1Space)            
+            this.declareWinner(this.row1Space)            
         }
         if(this.row2Space.length == 3){
-            this.checkIfArrIsTheSame(this.row2Space)           
+            this.declareWinner(this.row2Space)           
         }
         if(this.row3Space.length == 3){
-            this.checkIfArrIsTheSame(this.row3Space)           
+            this.declareWinner(this.row3Space)           
         }
         if(this.col1Space.length == 3){
-            this.checkIfArrIsTheSame(this.col1Space)
+            this.declareWinner(this.col1Space)
         }
         if(this.col2Space.length == 3){
-            this.checkIfArrIsTheSame(this.col2Space)        
+            this.declareWinner(this.col2Space)        
 
         }
         if(this.col3Space.length == 3){
-            this.checkIfArrIsTheSame(this.col3Space)         
+            this.declareWinner(this.col3Space)         
         }
         if(this.diag1Space.length == 3){
-            this.checkIfArrIsTheSame(this.diag1Space)       
+            this.declareWinner(this.diag1Space)       
         
         }
         if(this.diag2Space.length == 3){
-            this.checkIfArrIsTheSame(this.diag2Space)        
+            this.declareWinner(this.diag2Space)        
 
         }
     },
-
-    checkIfArrIsTheSame: function(arr){
+// declares winner if three in a row
+    declareWinner: function(arr){
         if(arr.every(decide => decide == arr[0] )){
-            alert(`player ${this.playerTurn} wins`)
+
+            this.player1Turn == 1? winner = this.player2[0].textContent:winner = this.player1[0].textContent
+            alert(`player ${winner} wins`)
             this.endGame = true;
         }  
-    }
+    },
+
 }
 
 TicTacToe.init();
