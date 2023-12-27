@@ -2,12 +2,19 @@ let TicTacToe = {
     playerTurn: 1,
     spaceTaken: [],
     repeatTurn: false,
+    row1Space: [],
+    row2Space: [],
+    row3Space: [],
+    col1Space: [],
+    col2Space: [],
+    col3Space: [],
+    diag1Space: [],
+    diag2Space: [],
+    endGame: false,
+
     init: function(){
         this.domCache();
         this.bindEvents();
-        this.checkDiag();
-        this.checkRows();
-        this.checkColumns();
         this.getDataAttribute();
         this.decidePlayerTurn();
         this.checkTurn();
@@ -30,16 +37,16 @@ let TicTacToe = {
 
         this.getAllSymbolSpaces = this.el.querySelectorAll("i")
 
-        this.row1 = this.el.querySelectorAll(".row1");
-        this.row2 = this.el.querySelectorAll(".row2");
-        this.row3 = this.el.querySelectorAll(".row3");
-
-        this.column1 = this.el.querySelectorAll(".column1");
-        this.column2 = this.el.querySelectorAll(".column2");
-        this.column3 = this.el.querySelectorAll(".column3");
-
-        this.diag1 = this.el.querySelectorAll(".diag1");
-        this.diag2 = this.el.querySelectorAll(".diag2");
+        this.space1 = this.el.querySelector(".ticTacToe__grid1")
+        this.space2 = this.el.querySelector(".ticTacToe__grid2")
+        this.space3 = this.el.querySelector(".ticTacToe__grid3")
+        this.space4 = this.el.querySelector(".ticTacToe__grid4")
+        this.space5 = this.el.querySelector(".ticTacToe__grid5")
+        this.space6 = this.el.querySelector(".ticTacToe__grid6")
+        this.space7 = this.el.querySelector(".ticTacToe__grid7")
+        this.space8 = this.el.querySelector(".ticTacToe__grid8")
+        this.space9 = this.el.querySelector(".ticTacToe__grid9")
+        
         
     } ,
     bindEvents: function(){
@@ -49,11 +56,10 @@ let TicTacToe = {
         this.player2Btn.forEach(btn => {
             btn.addEventListener("click",this.addPlayer2.bind(this));
         })
-
-        this.getAllSpaces.forEach(space=>{
-            space.addEventListener("click", () => this.getDataAttribute(space.getAttribute("data-attribute")));
-        })
-        
+            this.getAllSpaces.forEach(space=>{
+                space.addEventListener("click", () => this.getDataAttribute(space.getAttribute("data-attribute")));
+            })
+            
     },
 
     addPlayer1: function(){
@@ -82,7 +88,7 @@ let TicTacToe = {
         this.placePlayerSymbol(da,playerTurn)
         
     },
-    // X symbol
+    // X symbol is 1
     player2Turn:function(da, playerTurn){ 
         this.playerTurn = 2
         this.placePlayerSymbol(da,playerTurn)
@@ -93,6 +99,7 @@ let TicTacToe = {
         this.repeatTurn = true;
         return this.checkTurn();
     }
+
         if(this.spaceTaken.indexOf(da) == -1){
             this.spaceTaken.push(da)
         }
@@ -109,10 +116,10 @@ let TicTacToe = {
 
             } 
             if(space.getAttribute('data-attribute') == da){
-        
                 child = space.firstElementChild,
                 child.setAttribute("class",symbol)
                 child.setAttribute("data-symbol",dataSymbol)
+                this.findIfSomeOneWon(da,dataSymbol,playerTurn)
             }   
         }
         )
@@ -125,26 +132,103 @@ let TicTacToe = {
             }
             else{
                 this.playerTurn = 2
+  
             }
         }
     },
     
-    checkRows: function(){
-        // this.row1.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
-        // this.row2.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
-        // this.row3.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
-    },
-    checkColumns: function(){
-        // this.column1.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
-        // this.column2.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
-        // this.column3.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
+    findIfSomeOneWon: function(da,dataSymbol){
+        // 0 = X;
+        // 1 = 0;
+        if(dataSymbol === "X"){
+            dataSymbol = 0
+        }
+        if(dataSymbol === "O"){
+            dataSymbol = 1;
+        }
+        switch (Number(da)) {
+            case 0:
+                this.row1Space.push(dataSymbol)
+                this.col1Space.push(dataSymbol)
+                this.diag1Space.push(dataSymbol)
+                break;
+            case 1:
+                this.row1Space.push(dataSymbol)
+                this.col2Space.push(dataSymbol)
+                break;
+            case 2:
+                this.row1Space.push(dataSymbol)
+                this.col3Space.push(dataSymbol)
+                this.diag2Space.push(dataSymbol)
+                break;
+            case 3:
+                this.row2Space.push(dataSymbol)
+                this.col1Space.push(dataSymbol)
+                break;
+            case 4:
+                this.row2Space.push(dataSymbol)
+                this.col2Space.push(dataSymbol)
+                this.diag1Space.push(dataSymbol)
+                this.diag2Space.push(dataSymbol)
 
+                break;
+            case 5:
+                this.row2Space.push(dataSymbol)
+                this.col3Space.push(dataSymbol)
+                break;
+            case 6:
+                this.row3Space.push(dataSymbol)
+                this.col1Space.push(dataSymbol)
+                this.diag2Space.push(dataSymbol)
+                break;
+            case 7:
+                this.row3Space.push(dataSymbol)
+                this.col2Space.push(dataSymbol)
+                break;
+            case 8:
+                this.row3Space.push(dataSymbol)
+                this.col3Space.push(dataSymbol)
+                this.diag1Space.push(dataSymbol)
+                break;
+        
+            default:
+                break;
+        }
+        if(this.row1Space.length == 3){
+            this.checkIfArrIsTheSame(this.row1Space)            
+        }
+        if(this.row2Space.length == 3){
+            this.checkIfArrIsTheSame(this.row2Space)           
+        }
+        if(this.row3Space.length == 3){
+            this.checkIfArrIsTheSame(this.row3Space)           
+        }
+        if(this.col1Space.length == 3){
+            this.checkIfArrIsTheSame(this.col1Space)
+        }
+        if(this.col2Space.length == 3){
+            this.checkIfArrIsTheSame(this.col2Space)        
+
+        }
+        if(this.col3Space.length == 3){
+            this.checkIfArrIsTheSame(this.col3Space)         
+        }
+        if(this.diag1Space.length == 3){
+            this.checkIfArrIsTheSame(this.diag1Space)       
+        
+        }
+        if(this.diag2Space.length == 3){
+            this.checkIfArrIsTheSame(this.diag2Space)        
+
+        }
     },
-    checkDiag: function(){
-        // this.diag1.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
-        // this.diag2.forEach(spot => console.log(spot.children[0].getAttribute('data-symbol')));
+
+    checkIfArrIsTheSame: function(arr){
+        if(arr.every(decide => decide == arr[0] )){
+            alert(`player ${this.playerTurn} wins`)
+            this.endGame = true;
+        }  
     }
-
 }
 
 TicTacToe.init();

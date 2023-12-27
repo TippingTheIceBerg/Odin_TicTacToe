@@ -133,3 +133,7 @@ position: relative}
 .diag2{
     outline: solid orange 2px;
 }
+.fa-solid{
+    transition: linear all .1s;
+
+}
