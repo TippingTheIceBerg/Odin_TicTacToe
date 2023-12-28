@@ -45,6 +45,8 @@ let TicTacToe = {
         this.space7 = this.el.querySelector(".ticTacToe__grid7")
         this.space8 = this.el.querySelector(".ticTacToe__grid8")
         this.space9 = this.el.querySelector(".ticTacToe__grid9")
+        this.audio = document.querySelector("audio")
+        this.song= this.audio.querySelector(".song")
         
         
     } ,
@@ -83,6 +85,14 @@ let TicTacToe = {
             return;
         }
         this.decidePlayerTurn(da)
+        this.changeSong();
+    },
+
+    changeSong: function(){
+        if(this.song.getAttribute("src") == "./music/A Kind Of Hope.mp3"){
+            this.song.setAttribute("src","./music/Epic Cinematic Trailer _ ELITE.mp3")
+            this.audio.load()
+        }
     },
     decidePlayerTurn:function(da){
         if(this.playerTurn % 2 === 0){

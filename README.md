@@ -13,4 +13,11 @@ A Kind Of Hope by Scott Buckley | www.scottbuckley.com.au
 Music promoted by https://www.chosic.com/free-music/all/
 Creative Commons CC BY 4.0
 https://creativecommons.org/licenses/by/4.0/
+
+
+Epic Cinematic Trailer | ELITE by Alex-Productions | https://onsound.eu/
+Music promoted by https://www.chosic.com/free-music/all/
+Creative Commons CC BY 3.0
+https://creativecommons.org/licenses/by/3.0/
+ 
  
