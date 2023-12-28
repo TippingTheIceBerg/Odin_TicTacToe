@@ -252,8 +252,6 @@ let TicTacToe = {
     },
 
     resetGame: function(){
-        // this.player1.forEach(a => a.textContent = "")
-        // this.player2.forEach(a => a.textContent = "")
         this.spaceTaken.splice(0, this.spaceTaken.length)
         this.getAllSymbolSpaces.forEach(symbol => {
             symbol.setAttribute("dataSymbol","")
