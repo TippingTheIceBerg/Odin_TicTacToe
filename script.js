@@ -22,6 +22,8 @@ let TicTacToe = {
     domCache: function(){
         this.el = document.querySelector(".playingField");
 
+        this.reset = this.el.querySelector(".reset__game")
+
         this.player1Val = document.querySelector("#player1");
         this.player1Btn = this.el.querySelectorAll(".player1__btn");
         this.player1 = this.el.querySelectorAll(".player1__playerName");
@@ -53,9 +55,12 @@ let TicTacToe = {
         this.player2Btn.forEach(btn => {
             btn.addEventListener("click",this.addPlayer2.bind(this));
         })
-            this.getAllSpaces.forEach(space=>{
-                space.addEventListener("click", () => this.getDataAttribute(space.getAttribute("data-attribute")));
-            })
+        this.getAllSpaces.forEach(space=>{
+            space.addEventListener("click", () => this.getDataAttribute(space.getAttribute("data-attribute")));
+        })
+        this.reset.addEventListener("click", () =>{
+            this.resetGame();
+        })
             
     },
 
@@ -230,12 +235,34 @@ let TicTacToe = {
 // declares winner if three in a row
     declareWinner: function(arr){
         if(arr.every(decide => decide == arr[0] )){
-
-            this.player1Turn == 1? winner = this.player2[0].textContent:winner = this.player1[0].textContent
+            this.playerTurn == 1? winner = this.player1[0].textContent:winner = this.player2[0].textContent
             alert(`player ${winner} wins`)
             this.endGame = true;
         }  
     },
+
+    resetGame: function(){
+        // this.player1.forEach(a => a.textContent = "")
+        // this.player2.forEach(a => a.textContent = "")
+        this.spaceTaken.splice(0, this.spaceTaken.length)
+        this.getAllSymbolSpaces.forEach(symbol => {
+            symbol.setAttribute("dataSymbol","")
+            symbol.setAttribute("class","")
+        } ,
+        this.row1Space = [],
+        this.row2Space = [],
+        this.row3Space = [],
+        this.col1Space = [],
+        this.col2Space = [],
+        this.col3Space = [],
+        this.diag1Space = [],
+        this.diag2Space = [],
+        this.repeatTurn= false,
+        this.endGame = false,
+        this.playerTurn = 1,
+        )
+        this.init();
+    }
 
 }
 
